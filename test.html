@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Number Spinner Test</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+
+	<script type="text/javascript" src="dist/number-spinner.min.js"></script>
+
+	<script type="text/javascript">
+		var log = function( message ) {
+			var debugContainer = document.querySelector( '.debug-container' );
+			if ( debugContainer ) {
+				var newMessage = document.createElement( 'p' );
+				newMessage.innerText = message;
+				debugContainer.appendChild( newMessage );
+			}
+		}
+
+		var initNumberSpinner = function() {
+			if ( window.NumberSpinner ) {
+				
+				NumberSpinner.init();
+				NumberSpinner.initInputFields( document.querySelector( 'div.placement-both' ) );
+				NumberSpinner.initInputFields( document.querySelector( 'div.placement-before' ), { buttonPlacement: 'before' } );
+				NumberSpinner.initInputFields( document.querySelector( 'div.placement-after' ), { buttonPlacement: 'after' } );
+
+				log( 'Number Spinner initialized.' );
+			}
+			else {
+				log( 'Number Spinner isn\'t loaded.' );
+			}
+		}
+
+		window.addEventListener( "DOMContentLoaded", function () { log( 'DOM Content loaded' ); } );
+		window.addEventListener( "DOMContentLoaded", function () { initNumberSpinner(); } );
+		window.addEventListener( "load", function () { log( 'Page loaded' ); } );
+
+	</script>
+
+</head>
+<body>
+
+	<hr/>
+
+	<h2>Number spinner -- buttons both before and after</h2>
+
+	<div class="placement-both">
+		<input type="number" min="2" max="20" step="3" value="5">
+	</div>
+
+	<hr/>
+
+	<h2>Number spinner -- buttons before</h2>
+
+	<div class="placement-before">
+		<input type="number" min="2" max="20" step="3" value="6">
+	</div>
+
+	<hr/>
+
+	<h2>Number spinner -- buttons after</h2>
+
+	<div class="placement-after">
+		<input type="number" min="2" max="20" step="3" value="7">
+	</div>
+
+	<hr/>
+
+	<div class="debug-container">
+	</div>
+
+</body>
+</html>
