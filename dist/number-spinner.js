@@ -18,14 +18,16 @@
 	var _hasInitialized = false;
 	var _publicMethods = {}; // Placeholder for public methods
 	var _settings = {
+		bodyClass: 'has-number-spinner',
+
 		containerSelector: '',
 		inputSelector: 'input[type="number"]',
 
 		buttonPlacement: 'both', // Accepts `both`, `before` and `after`.
 		buttonsAddedClass: 'buttons-added',
 
-		minusButtonTemplate: '<button type="button" class="number-spin-button minus" title="Decrease">-</button>',
-		plusButtonTemplate: '<button type="button" class="number-spin-button plus" title="Increase">+</button>',
+		minusButtonTemplate: '<button type="button" class="number-spin-button minus" title="Decrease" aria-hidden="true">-</button>',
+		plusButtonTemplate: '<button type="button" class="number-spin-button plus" title="Increase" aria-hidden="true">+</button>',
 
 		onChangeCallback: null,
 	};
@@ -252,14 +254,14 @@
 		// Merge settings
 		_settings = extend( _settings, options );
 
+		// Add capture click event listener
+		document.addEventListener( 'click', handleCapturedClick, true );
+
 		// Initialize fields inside the default container
 		if ( _settings.containerSelector && _settings.containerSelector !== '' ) {
 			var containerElement = document.querySelector( _settings.containerSelector );
 			_publicMethods.initInputFields( containerElement );
 		}
-
-		// Add capture click event listener
-		document.addEventListener( 'click', handleCapturedClick, true );
 
 		// Add init class
 		document.body.classList.add( _settings.bodyClass );
