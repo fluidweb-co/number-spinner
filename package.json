@@ -1,6 +1,6 @@
 {
   "name": "number-spinner",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Add plus/minus buttons to input type number.",
   "keywords": [
     "number",
