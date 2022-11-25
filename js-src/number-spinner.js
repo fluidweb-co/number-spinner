@@ -26,8 +26,8 @@
 		buttonPlacement: 'both', // Accepts `both`, `before` and `after`.
 		buttonsAddedClass: 'buttons-added',
 
-		minusButtonTemplate: '<button type="button" class="number-spin-button minus" title="Decrease" aria-hidden="true">-</button>',
-		plusButtonTemplate: '<button type="button" class="number-spin-button plus" title="Increase" aria-hidden="true">+</button>',
+		minusButtonTemplate: '<button type="button" class="number-spin-button minus" title="Decrease" aria-hidden="true" tabindex="-1">-</button>',
+		plusButtonTemplate: '<button type="button" class="number-spin-button plus" title="Increase" aria-hidden="true" tabindex="-1">+</button>',
 
 		onChangeCallback: null,
 	};
