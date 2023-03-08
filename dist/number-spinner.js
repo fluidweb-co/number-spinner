@@ -179,19 +179,19 @@
 
 		// Get number field step and invert signal if minus button
 		var step = targetInput.getAttribute( 'step' );
-		step = step ? parseInt( step ) : 1;
+		step = step ? parseFloat( step ) : 1;
 		step = target.getAttribute( 'data-number-spinner-button' ) == 'minus' ? -1 * step : step;
 
 		// Get min and max values
 		var min = targetInput.getAttribute( 'min' );
-		min = min != '' ? parseInt( min ) : null;
+		min = min != '' ? parseFloat( min ) : null;
 		min = min == NaN ? null : min;
 		var max = targetInput.getAttribute( 'max' );
-		max = max != '' ? parseInt( max ) : null;
+		max = max != '' ? parseFloat( max ) : null;
 		max = max == NaN ? null : max;
 
 		// Get new value
-		var value = parseInt( targetInput.value || 0 );
+		var value = parseFloat( targetInput.value || 0 );
 		value = value + step;
 
 		// Handle min and max values
