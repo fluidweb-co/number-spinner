@@ -3,7 +3,7 @@
  *
  * Add plus/minus buttons to input type number.
  */
- (function (root, factory) {
+(function (root, factory) {
 	if ( typeof define === 'function' && define.amd ) {
 		define([], factory(root));
 	} else if ( typeof exports === 'object' ) {
@@ -177,6 +177,10 @@
 		// Bail if target number input field was not found
 		if ( ! targetInput ) { return; }
 
+		// Ger decimals from field attributes
+		var decimals = targetInput.getAttribute( 'data-number-spinner-decimals' );
+		decimals = decimals ? parseInt( decimals ) : 0;
+
 		// Get number field step and invert signal if minus button
 		var step = targetInput.getAttribute( 'step' );
 		step = step ? parseFloat( step ) : 1;
@@ -190,24 +194,26 @@
 		max = max != '' ? parseFloat( max ) : null;
 		max = max == NaN ? null : max;
 
-		// Get new value
-		var value = parseFloat( targetInput.value || 0 );
+		// Get new value from field
+		var value = parseFloat( targetInput.value );
 		value = value + step;
 
 		// Handle min and max values
-		if ( min != null && value <= min ) { value = min; }
-		if ( max != null && value >= max ) { value = max; }
-
-		// Set new value
-		targetInput.value = value;
-		targetInput.focus();
-		
-		// Dispatch change event.
-		var changeEvent = new CustomEvent( 'change', { detail: {}, bubbles: false } );
-		targetInput.dispatchEvent( changeEvent );
+		if ( min != null && value < min ) { value = min; }
+		if ( max != null && value > max ) { value = max; }
 
 		// Lose focus from button
 		e.target.blur();
+
+		// Set new value
+		// Needs to set decimal places to avoid issues with floating point numbers
+		// https://stackoverflow.com/questions/588004/is-floating-point-math-broken
+		targetInput.value = value.toFixed( decimals );
+		targetInput.focus();
+
+		// Dispatch change event.
+		var changeEvent = new CustomEvent( 'change', { detail: {}, bubbles: false } );
+		targetInput.dispatchEvent( changeEvent );
 	};
 
 
@@ -223,10 +229,10 @@
 
 		// Merge options with default settings
 		options = extend( _settings, options );
-		
+
 		// Get input elements
 		var inputElements = containerElement.querySelectorAll( options.inputSelector );
-		
+
 		for ( var i = 0; i < inputElements.length; i++ ) {
 			// Check if already initialized
 			if ( ! inputElements[ i ].classList.contains( options.buttonsAddedClass ) ) {

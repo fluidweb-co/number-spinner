@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Fixed
 
+- Fix: Add decimal places to float quantity calculations to avoid precision errors. Decimal places defaults to `0`, and should be specified as an input attribute when decimals are expected.
+
+## [1.0.2] - 2023-03-08
+
+### Fixed
+
 - Fix: Use `float` instead of `int` when converting min, max and step values.
 
 ## [1.0.1] - 2022-11-25
